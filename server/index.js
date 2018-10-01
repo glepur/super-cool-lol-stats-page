@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -54,8 +55,10 @@ app.get('/summoner/:accountId/matches/:matchId', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.json({ status: 'OK' });
+app.use(express.static(path.normalize(__dirname + '/../client/')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.normalize(__dirname + '/../client/index.html'));
 });
 
 app.use((err, req, res, next) => {
