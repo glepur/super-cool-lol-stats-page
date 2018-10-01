@@ -110,8 +110,8 @@ export default class Match extends Component {
                 </td>
                 <td>
                   <b>
-                    {match.kills} /{' '}
-                    <span className="text-danger">{match.kills}</span> /{' '}
+                    {match.kills} /
+                    <span className="text-danger">{match.deaths}</span> /
                     {match.assists}
                   </b>
                 </td>
