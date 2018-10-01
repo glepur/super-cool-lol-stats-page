@@ -23,7 +23,7 @@ app.get('/summoner', async (req, res, next) => {
   }
 });
 
-app.get('/summoner/:accountId/matches', async (req, res) => {
+app.get('/summoner/:accountId/matches', async (req, res, next) => {
   try {
     const { accountId } = req.params;
     const { matches } = await leagueJs.Match.gettingListByAccount(
@@ -44,7 +44,7 @@ app.get('/summoner/:accountId/matches', async (req, res) => {
   }
 });
 
-app.get('/summoner/:accountId/matches/:matchId', async (req, res) => {
+app.get('/summoner/:accountId/matches/:matchId', async (req, res, next) => {
   const { accountId, matchId } = req.params;
   const match = await leagueJs.Match.gettingById(matchId);
   if (match && match.gameId) {
@@ -57,13 +57,13 @@ app.get('/summoner/:accountId/matches/:matchId', async (req, res) => {
 
 app.use(express.static(path.normalize(__dirname + '/../client/')));
 
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
   res.sendFile(path.normalize(__dirname + '/../client/index.html'));
 });
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.json({ error: err.message });
+  res.status(err.statusCode).json({ error: err.message });
 });
 
 const port = process.env.PORT || 3000;
