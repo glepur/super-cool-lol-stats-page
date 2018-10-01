@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default function SummonerInfo(props) {
   if (props.summoner) {
     return (
-      <div className="row">
+      <div className="row mb-2">
         <img
           width="100"
           height="100"

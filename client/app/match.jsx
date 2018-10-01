@@ -91,21 +91,13 @@ export default class Match extends Component {
                   Runes:
                   <br />
                   <img
-                    src={getRuneUrl(
-                      this.props.runes,
-                      match.primaryRuneStyle,
-                      this.props.dataDragonUrl
-                    )}
+                    src={getRuneUrl(this.props.runes, match.primaryRuneStyle)}
                     alt="SummonerSpell1"
                     width="40"
                     height="40"
                   />
                   <img
-                    src={getRuneUrl(
-                      this.props.runes,
-                      match.secondaryRuneStyle,
-                      this.props.dataDragonUrl
-                    )}
+                    src={getRuneUrl(this.props.runes, match.secondaryRuneStyle)}
                     alt="SummonerSpell2"
                     width="40"
                     height="40"
@@ -126,13 +118,14 @@ export default class Match extends Component {
                 <td>
                   Total creep score: {match.totalMinionsKilled}
                   <br />
-                  Creep score per minute:{' '}
-                  {(match.totalMinionsKilled / match.duration) * 60}
+                  Creep score per minute: {getCreepScorePerMinute(match)}
+                </td>
+                <td>
+                  {renderItemImages(match.items, this.props.dataDragonUrl)}
                 </td>
               </tr>
             </tbody>
           </table>
-          {JSON.stringify(this.state.matchDetails)}
         </div>
       );
     } else {
@@ -163,10 +156,32 @@ function getSummonerSpellUrl(summonerSpell, dataDragonUrl) {
   return `${dataDragonUrl}img/spell/${summonerSpell.id}.png`;
 }
 
-function getRuneUrl(runes, id, dataDragonUrl) {
+function getRuneUrl(runes, id) {
   if (!runes) {
     return null;
   }
   const rune = runes.find(rune => rune.id === id);
   return `http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
+}
+
+function getItemUrl(id, dataDragonUrl) {
+  return `${dataDragonUrl}img/item/${id}.png`;
+}
+
+function getCreepScorePerMinute(match) {
+  const cspm = (match.totalMinionsKilled / match.duration) * 60;
+  return cspm.toFixed(2);
+}
+
+function renderItemImages(items, dataDragonUrl) {
+  return items.map((item, index) => {
+    return (
+      <img
+        key={index}
+        width="40"
+        height="40"
+        src={getItemUrl(item, dataDragonUrl)}
+      />
+    );
+  });
 }
