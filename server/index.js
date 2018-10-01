@@ -11,6 +11,10 @@ const leagueJs = new LeagueJs(process.env.LEAGUE_API_KEY, {
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.json({ status: 'OK' });
+});
+
 app.get('/summoner', async (req, res) => {
   const name = req.query.name;
   const summoner = await leagueJs.Summoner.gettingByName(name);
