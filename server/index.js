@@ -8,6 +8,7 @@ const LeagueJs = require('leaguejs');
 const leagueJs = new LeagueJs(process.env.LEAGUE_API_KEY, {
   PLATFORM_ID: process.env.LEAGUE_API_PLATFORM_ID
 });
+const matchService = require('./match');
 
 app.use(bodyParser.json());
 
@@ -46,13 +47,8 @@ app.get('/summoner/:accountId/matches/:matchId', async (req, res) => {
   const { accountId, matchId } = req.params;
   const match = await leagueJs.Match.gettingById(matchId);
   if (match && match.gameId) {
-    const { participantId } = match.participantIdentities.find(
-      identity => identity.player.currentAccountId === +accountId
-    );
-    const participant = match.participants.find(
-      participant => participant.participantId === +participantId
-    );
-    res.json(participant.stats);
+    const matchData = matchService.getMatchData(match, accountId);
+    res.json(matchData);
   } else {
     res.status(404).json({ message: 'Match not found' });
   }
