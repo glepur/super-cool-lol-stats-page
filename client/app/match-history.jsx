@@ -36,7 +36,12 @@ export default class MatchHistory extends Component {
       this.props.summonerId !== prevProps.summonerId
     ) {
       const response = await fetch(
-        `/summoner/${this.props.summonerId}/matches`
+        `/summoner/${this.props.summonerId}/matches`,
+        {
+          headers: {
+            'X-Region': this.props.region
+          }
+        }
       );
       const matches = await response.json();
       this.setState({ matches });
@@ -48,6 +53,7 @@ export default class MatchHistory extends Component {
       return (
         <div className="row">
           {renderMatches(
+            this.props.region,
             this.props.summonerId,
             this.state.matches,
             this.state.summonerSpells,
@@ -63,6 +69,7 @@ export default class MatchHistory extends Component {
 }
 
 function renderMatches(
+  region,
   summonerId,
   matches,
   summonerSpells,
@@ -73,6 +80,7 @@ function renderMatches(
     return matches.map(match => (
       <div className="row" key={match.gameId}>
         <Match
+          region={region}
           summonerId={summonerId}
           match={match}
           summonerSpells={summonerSpells}

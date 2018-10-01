@@ -16,7 +16,8 @@ app.use(bodyParser.json());
 app.get('/summoner', async (req, res, next) => {
   try {
     const name = req.query.name;
-    const summoner = await leagueJs.Summoner.gettingByName(name);
+    const region = req.headers['x-region'];
+    const summoner = await leagueJs.Summoner.gettingByName(name, region);
     res.json(summoner);
   } catch (e) {
     next(e);
@@ -26,9 +27,10 @@ app.get('/summoner', async (req, res, next) => {
 app.get('/summoner/:accountId/matches', async (req, res, next) => {
   try {
     const { accountId } = req.params;
+    const region = req.headers['x-region'];
     const { matches } = await leagueJs.Match.gettingListByAccount(
       accountId,
-      null,
+      region,
       {
         beginIndex: 0,
         endIndex: 10
@@ -46,7 +48,8 @@ app.get('/summoner/:accountId/matches', async (req, res, next) => {
 
 app.get('/summoner/:accountId/matches/:matchId', async (req, res, next) => {
   const { accountId, matchId } = req.params;
-  const match = await leagueJs.Match.gettingById(matchId);
+  const region = req.headers['x-region'];
+  const match = await leagueJs.Match.gettingById(matchId, region);
   if (match && match.gameId) {
     const matchData = matchService.getMatchData(match, accountId);
     res.json(matchData);

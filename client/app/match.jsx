@@ -26,7 +26,12 @@ export default class Match extends Component {
       oldProps.match !== this.props.match
     ) {
       const response = await fetch(
-        `/summoner/${this.props.summonerId}/matches/${this.props.match.gameId}`
+        `/summoner/${this.props.summonerId}/matches/${this.props.match.gameId}`,
+        {
+          headers: {
+            'X-Region': this.props.region
+          }
+        }
       );
       const match = await response.json();
       this.setState({ matchDetails: match });
