@@ -161,7 +161,7 @@ function getRuneUrl(runes, id) {
     return null;
   }
   const rune = runes.find(rune => rune.id === id);
-  return `http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
+  return `https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
 }
 
 function getItemUrl(id, dataDragonUrl) {

@@ -4,7 +4,7 @@ import SummonerSearchForm from './summoner-search-form';
 import SummonerInfo from './summoner-info';
 import MatchHistory from './match-history';
 
-const dataDragonUrl = 'http://ddragon.leagueoflegends.com/cdn/8.19.1/';
+const dataDragonUrl = 'https://ddragon.leagueoflegends.com/cdn/8.19.1/';
 
 class App extends Component {
   constructor(props) {
