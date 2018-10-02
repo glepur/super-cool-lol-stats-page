@@ -20,6 +20,7 @@ exports.getMatchData = (match, accountId) => {
       participant.stats.item5,
       participant.stats.item6
     ],
+    champId: participant.championId,
     champLevel: participant.stats.champLevel,
     totalMinionsKilled: participant.stats.totalMinionsKilled
   };

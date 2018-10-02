@@ -43,6 +43,8 @@ export default class Match extends Component {
     if (!match) {
       return null;
     }
+    const champion = getChampion(this.props.champions, match.champId);
+    const championUrl = getChampionUrl(champion, this.props.dataDragonUrl);
     const summonerSpell1 = getSummonerSpell(
       this.props.summonerSpells,
       match.summonerSpell1Id
@@ -77,6 +79,16 @@ export default class Match extends Component {
                 </td>
                 <td>{moment(this.props.match.timestamp).fromNow()}</td>
                 <td>
+                  <img
+                    src={championUrl}
+                    alt="Champion"
+                    width="40"
+                    height="40"
+                  />
+                  <br />
+                  {champion.name}
+                </td>
+                <td>
                   Summoner spells:
                   <br />
                   <img
@@ -97,13 +109,13 @@ export default class Match extends Component {
                   <br />
                   <img
                     src={getRuneUrl(this.props.runes, match.primaryRuneStyle)}
-                    alt="SummonerSpell1"
+                    alt="Rune1"
                     width="40"
                     height="40"
                   />
                   <img
                     src={getRuneUrl(this.props.runes, match.secondaryRuneStyle)}
-                    alt="SummonerSpell2"
+                    alt="Rune2"
                     width="40"
                     height="40"
                   />
@@ -146,6 +158,17 @@ function convertSecondsToReadable(seconds) {
     .format('H:mm:ss');
 }
 
+function getChampion(champions, id) {
+  if (!champions) {
+    return null;
+  }
+  for (let key in champions) {
+    if (+champions[key].key === id) {
+      return champions[key];
+    }
+  }
+}
+
 function getSummonerSpell(summonerSpells, id) {
   if (!summonerSpells) {
     return null;
@@ -155,6 +178,10 @@ function getSummonerSpell(summonerSpells, id) {
       return summonerSpells[key];
     }
   }
+}
+
+function getChampionUrl(champion, dataDragonUrl) {
+  return `${dataDragonUrl}img/champion/${champion.id}.png`;
 }
 
 function getSummonerSpellUrl(summonerSpell, dataDragonUrl) {

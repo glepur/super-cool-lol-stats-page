@@ -12,6 +12,15 @@ export default class MatchHistory extends Component {
   componentDidMount() {
     this.setSummonerSpells();
     this.setRunes();
+    this.setChampions();
+  }
+
+  async setChampions() {
+    const response = await fetch(
+      `${this.props.dataDragonUrl}data/en_US/champion.json`
+    );
+    const { data } = await response.json();
+    this.setState({ champions: data });
   }
 
   async setSummonerSpells() {
@@ -56,6 +65,7 @@ export default class MatchHistory extends Component {
             this.props.region,
             this.props.summonerId,
             this.state.matches,
+            this.state.champions,
             this.state.summonerSpells,
             this.state.runes,
             this.props.dataDragonUrl
@@ -72,6 +82,7 @@ function renderMatches(
   region,
   summonerId,
   matches,
+  champions,
   summonerSpells,
   runes,
   dataDragonUrl
@@ -83,6 +94,7 @@ function renderMatches(
           region={region}
           summonerId={summonerId}
           match={match}
+          champions={champions}
           summonerSpells={summonerSpells}
           runes={runes}
           dataDragonUrl={dataDragonUrl}
