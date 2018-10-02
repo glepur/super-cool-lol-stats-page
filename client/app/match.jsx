@@ -135,9 +135,11 @@ export default class Match extends Component {
                   {match.champLevel}
                 </td>
                 <td>
-                  Total creep score: {match.totalMinionsKilled}
+                  <b>Creep score</b>
                   <br />
-                  Creep score per minute: {getCreepScorePerMinute(match)}
+                  Total: {match.totalMinionsKilled}
+                  <br />
+                  Per minute: {getCreepScorePerMinute(match)}
                 </td>
                 <td>
                   {renderItemImages(match.items, this.props.dataDragonUrl)}
