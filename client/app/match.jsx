@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { get } from 'https';
 
+const runeIconUrl = 'https://ddragon.leagueoflegends.com/cdn/img/';
+
 export default class Match extends Component {
   constructor(props) {
     super(props);
@@ -193,7 +195,7 @@ function getRuneUrl(runes, id) {
     return null;
   }
   const rune = runes.find(rune => rune.id === id);
-  return `https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
+  return `${runeIconUrl}${rune.icon}`;
 }
 
 function getItemUrl(id, dataDragonUrl) {
