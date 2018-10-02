@@ -120,7 +120,7 @@ export default class Match extends Component {
                     height="40"
                   />
                 </td>
-                <td>
+                <td style={{ minWidth: 80 }}>
                   <b>
                     {match.kills} /
                     <span className="text-danger">{match.deaths}</span> /
