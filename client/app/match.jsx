@@ -196,8 +196,8 @@ function getRuneUrl(runes, id) {
   if (!runes) {
     return null;
   }
-  const rune = runes.find(rune => rune.id === id);
-  return `${runeIconUrl}${rune.icon}`;
+  const rune = runes.find(r => r.id === id);
+  return `${runeIconUrl}${rune && rune.icon}`;
 }
 
 function getItemUrl(id, dataDragonUrl) {
